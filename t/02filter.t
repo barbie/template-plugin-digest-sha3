@@ -6,8 +6,8 @@ use Template::Test;
 
 $Template::Test::DEBUG = 0;
 
-if($Digest::SHA3::VERSION > 0.22) {
-    print STDERR "# These test only apply to Digest::SHA3 v0.22 or lower\n";
+if($Digest::SHA3::VERSION < 0.24) {
+    print STDERR "# These test only apply to Digest::SHA3 v0.24 or higher\n";
     ok(1);
 } else {
     test_expect(\*DATA);
@@ -27,7 +27,7 @@ Donec pharetra, nibh nec mollis tristique, lorem turpis viverra elit, in sollici
     END;
  -%]
 --expect--
-adfb49649e8bb5a356c12cd3eb9fb328f6d57a340326362e6dc654aa85606fb6
+cdac72f7172b58c004968dd48db7ab670f33a304736d370fbde446c21094e532
 
 
 # text | sha3_hex
@@ -36,8 +36,8 @@ adfb49649e8bb5a356c12cd3eb9fb328f6d57a340326362e6dc654aa85606fb6
 [% 'xyzzy' | sha3_hex %]
 [% text = 'xyzzy'; text.sha3_hex %]
 --expect--
-fcf1eb3041aa2eefd41cda62428456933e23e77d2b6307e5a4e8904ab4243457
-fcf1eb3041aa2eefd41cda62428456933e23e77d2b6307e5a4e8904ab4243457
+f78850e7536b52d75ddb0c6a660cd9a97692c0c7f8f1aa5e62f449d5d55f6171
+f78850e7536b52d75ddb0c6a660cd9a97692c0c7f8f1aa5e62f449d5d55f6171
 
 # FILTER sha3_base64; ...
 --test--
@@ -51,7 +51,7 @@ Donec pharetra, nibh nec mollis tristique, lorem turpis viverra elit, in sollici
     END;
  -%]
 --expect--
-rftJZJ6LtaNWwSzT65+zKPbVejQDJjYubcZUqoVgb7Y
+zaxy9xcrWMAElo3UjberZw8zowRzbTcPveRGwhCU5TI
 
 
 # text | sha3_base64
@@ -59,13 +59,13 @@ rftJZJ6LtaNWwSzT65+zKPbVejQDJjYubcZUqoVgb7Y
 [% USE Digest.SHA3 -%]
 [% 'xyzzy' | sha3_base64 %]
 --expect--
-/PHrMEGqLu/UHNpiQoRWkz4j530rYwflpOiQSrQkNFc
+94hQ51NrUtdd2wxqZgzZqXaSwMf48apeYvRJ1dVfYXE
 
 --test--
 [% USE Digest.SHA3 -%]
 [% text = 'xyzzy'; text.sha3_base64 %]
 --expect--
-/PHrMEGqLu/UHNpiQoRWkz4j530rYwflpOiQSrQkNFc
+94hQ51NrUtdd2wxqZgzZqXaSwMf48apeYvRJ1dVfYXE
 
 
 # Test the sha3 filter
@@ -81,7 +81,7 @@ Donec pharetra, nibh nec mollis tristique, lorem turpis viverra elit, in sollici
     checksum.sha3_hex;
  -%]
 --expect--
-b076952da24a90f6f0d50b232ee3cd1745381166cf202ce017cd5cf2673b8504
+de518bb2fb4c73b49db51ff855db239b6ba549c0a378a02462945a1e8640aa7d
 
 
 # Test the sha3 filter and vmethod
@@ -91,26 +91,26 @@ b076952da24a90f6f0d50b232ee3cd1745381166cf202ce017cd5cf2673b8504
 [% text1 = 'xyzzy'; text1.sha3 | sha3_hex %]
 [% text2 = 'xyzzy'; text2.sha3.sha3_hex %]
 --expect--
-572375b3aa0d912e8215ee89f33c93e3bc44f869136721f7cf10e7dfb8d72652
-572375b3aa0d912e8215ee89f33c93e3bc44f869136721f7cf10e7dfb8d72652
-572375b3aa0d912e8215ee89f33c93e3bc44f869136721f7cf10e7dfb8d72652
+c4de5f86f3a98183dae72a2dc252d2c58f7f4836331479ee46bcaf538b68bdca
+c4de5f86f3a98183dae72a2dc252d2c58f7f4836331479ee46bcaf538b68bdca
+c4de5f86f3a98183dae72a2dc252d2c58f7f4836331479ee46bcaf538b68bdca
 
 
 --test--
 [% USE Digest.SHA3(512) -%]
 [% text = 'xyzzy'; text.sha3_base64 %]
 --expect--
-Kaa7QBGIgMH0/bhbN82am54HSOqQ7m+GLcivZI5HAIy27kiQJJ1anOqAZyKwKHQ6CXfHM3Z9zpiuD2c/9dth2Q
+2sB6I8oJmE1gFBvkwZTrUOPu4H1FUjCn+8S6GsMd8NCs/psu+W8AN6zrL4B1E7YDKYz+ywLhK+kalIG38RixPA
 
 --test--
 [% USE Digest.SHA3(384) -%]
 [% text = 'xyzzy'; text.sha3_base64 %]
 --expect--
-dZrynfP1M+FXRS1uJ8jbsFwhZyipIpUnSThk2+UsdwQjF99IcGZEqjmssmKpxW+2
+YK0GWATaZf09g/fvspYPqm/qtaiqf+KjaNj5uMEQCjQpuXWPjqQbeBINL5H/A0Lo
 
 --test--
 [% USE Digest.SHA3(224) -%]
 [% text = 'xyzzy'; text.sha3_base64 %]
 --expect--
-MQqCVouyT1RERo3OKurC6OTYkHpdySyPHaYs7Q
+d3VZq2pcaKssfvcBvvvdyV3bMJn+DV6E+kbZFA
 

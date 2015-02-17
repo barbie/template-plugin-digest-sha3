@@ -1,6 +1,7 @@
 Revision history for Template-Plugin-Digest-SHA3
 ================================================
 
+0.02    2015-02-17
         - algorithms have changed in Digest-SHA3-0.24, such that strings are 
           different from previous versions.
 

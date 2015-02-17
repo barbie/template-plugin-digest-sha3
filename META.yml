@@ -1,6 +1,6 @@
 --- #YAML:1.0
 name:                     Template-Plugin-Digest-SHA3
-version:                  0.01
+version:                  0.02
 abstract:                 TT2 interface to the SHA3 Algorithm
 author:
   - Barbie <barbie@cpan.org>
@@ -27,7 +27,7 @@ build_requires:
 provides:
   Template::Plugin::Digest::SHA3:
     file:     lib/Template/Plugin/Digest/SHA3.pm
-    version:  0.01
+    version:  0.02
 no_index:
   directory:
     - t
